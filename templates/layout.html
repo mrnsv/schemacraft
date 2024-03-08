@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCHEMACRAFT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SCHEMACRAFT</h1>
+            <button id="darkModeBtn">🌙</button>
+        </header>
+        <div class="input-container">
+            <textarea id="jsonInput" placeholder="Enter your JSON here..."></textarea>
+        </div>
+        <button id="convertBtn">Convert to JSON Schema</button>
+        <div class="output-container">
+            <pre id="schemaOutput"></pre>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
