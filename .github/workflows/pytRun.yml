@@ -40,17 +40,17 @@ jobs:
         run: |
           docker run --detach schemacraft:latest
 
-      - name: Get container ID
-        run: |
-          my-app-container-id=$(docker ps -q -f name=my-app-container)  # Adjust container name
-          echo "Container ID: $my-app-container-id"
+      # - name: Get container ID
+      #   run: |
+      #     my-app-container-id=$(docker ps -q -f name=my-app-container)  # Adjust container name
+      #     echo "Container ID: $my-app-container-id"
 
-      - name: Wait for container to be ready
-        run: |
-          until docker ps -q | grep ${{ steps.get_container_id.outputs.my-app-container-id }}; do sleep 5; done
-        env:
-          my-app-container-id: ${{ steps.get_container_id.outputs.my-app-container-id }}
+      # - name: Wait for container to be ready
+      #   run: |
+      #     until docker ps -q | grep ${{ steps.get_container_id.outputs.my-app-container-id }}; do sleep 5; done
+      #   env:
+      #     my-app-container-id: ${{ steps.get_container_id.outputs.my-app-container-id }}
 
       - name: Run Pytest in Container
         run: |
-          docker run --rm my-app-image pytest
+          docker run --rm schemacraft:latest pytest
