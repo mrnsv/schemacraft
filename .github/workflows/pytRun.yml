@@ -26,8 +26,8 @@ jobs:
       - name: Send Discord Notification
         run: |
           curl -X POST \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}" \
           -d '{ "content": "Your message content here." }' \
           ${{ secrets.DISCORD_WEBHOOK_URL }}
 
