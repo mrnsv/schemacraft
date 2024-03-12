@@ -25,11 +25,11 @@ jobs:
 
       - name: Send Discord Notification
         run: |
-          curl -X POST
-            -H "Content-Type: application/json"
-            -H "Authorization: Bot ${{ vars.DISCORD_BOT_TOKEN }}"
-          -d '{ "content": "Your message content here." }'
-            ${{ vars.DISCORD_WEBHOOK_URL }}
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Bot ${{ vars.DISCORD_BOT_TOKEN }}" \
+          -d '{ "content": "Your message content here." }' \
+          ${{ vars.DISCORD_WEBHOOK_URL }}
 
       # - name: Notify Failure (if job fails)
       #   uses: actions/github-script@v6
