@@ -27,9 +27,9 @@ jobs:
         run: |
           curl -X POST
             -H "Content-Type: application/json"
-            -H "Authorization: Bot ${{ secrets.DISCORD_BOT_TOKEN }}"
+            -H "Authorization: Bot ${{ vars.DISCORD_BOT_TOKEN }}"
           -d '{ "content": "Your message content here." }'
-          ${{ secrets.DISCORD_WEBHOOK_URL }}
+          ${{ vars.DISCORD_WEBHOOK_URL }}
 
       # - name: Notify Failure (if job fails)
       #   uses: actions/github-script@v6
