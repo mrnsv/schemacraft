@@ -46,7 +46,7 @@ def test_schema_generation_valid_data():
 
         # Basic assertions on the generated schema (you can add more)
         assert "type" in response_data
-        assert response_data["type"] == ""
+        assert response_data["type"] == "object"
         assert "properties" in response_data
 
         # Option 2: Using Flask-Client for integrated testing (if installed)
