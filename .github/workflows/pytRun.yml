@@ -23,12 +23,12 @@ jobs:
       #   run: |
       #     python -m pip install -r requirements.txt
 
-      - name: Log in to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag schemacraft:latest
 
       - name: Summon Schemacraft
         run: |
-          docker run --detach schemacraft
+          docker run --detach schemacraft:latest
 
       - name: Run Pytest
         run: |
