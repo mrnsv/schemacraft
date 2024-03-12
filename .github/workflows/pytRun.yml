@@ -35,6 +35,7 @@ jobs:
       # - name: Run Pytest
       #   run: |
       #     pytest
+      
       - name: Run Docker container
         run: |
           docker run --detach schemacraft:latest
@@ -50,8 +51,8 @@ jobs:
         env:
           my-app-container-id: ${{ steps.get_container_id.outputs.my-app-container-id }}
 
-      - name: Run Pytest inside container
-        uses: docker/ssh-action@v1
+      - name: Run Pytest in Container
+        uses: mrnsv01/ssh-action@v1
         with:
           img: schemacraft:latest
           cmd: pytest
