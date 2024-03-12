@@ -52,7 +52,7 @@ jobs:
           my-app-container-id: ${{ steps.get_container_id.outputs.my-app-container-id }}
 
       - name: Run Pytest in Container
-        uses: mrnsv01/ssh-action@v1
+        uses: docker/ssh-action@v1
         with:
           img: schemacraft:latest
           cmd: pytest
