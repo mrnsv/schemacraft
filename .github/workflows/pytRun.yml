@@ -27,7 +27,7 @@ jobs:
         uses: actions/github-script@v6
         if: failure()
         with:
-          github-token: ${{ secrets.TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             try:
               github.issues.createComment({
