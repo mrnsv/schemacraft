@@ -25,7 +25,7 @@ jobs:
 
       - name: Summon Schemacraft
         run: |
-          python app.py
+          docker run --detach schemacraft
 
       - name: Run Pytest
         run: |
