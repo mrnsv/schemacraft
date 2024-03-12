@@ -30,23 +30,18 @@ invalid_json_data = [
 def test_schema_generation_valid_data():
     """Tests generating JSON Schemas from various valid JSON data structures"""
 
-    url = "http://127.0.0.1:5000/"  # Replace with your application URL
+    url = "http://localhost:5000/"  # Replace with your application URL
     headers = {"Content-Type": "application/json"}
 
     for data in valid_json_data:
         # Option 1: Using requests library (external API call)
         response = post(url, json=data, headers=headers)
-        
-        print("Response : ", response)
-        print("Data : ", data)
-        print("Status Code : ", response.status_code)
-        
         assert response.status_code == 200
         response_data = json.loads(response.text)
 
         # Basic assertions on the generated schema (you can add more)
         assert "type" in response_data
-        assert response_data["type"] == ""
+        assert response_data["type"] == "object"
         assert "properties" in response_data
 
         # Option 2: Using Flask-Client for integrated testing (if installed)
@@ -60,7 +55,7 @@ def test_schema_generation_valid_data():
 def test_schema_generation_invalid_data():
     """Tests error handling for invalid JSON data"""
 
-    url = "http://127.0.0.1:5000/"  # Replace with your application URL
+    url = "http://localhost:5000/"  # Replace with your application URL
     headers = {"Content-Type": "application/json"}
 
     for data in invalid_json_data:
