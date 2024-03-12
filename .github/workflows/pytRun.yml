@@ -36,9 +36,9 @@ jobs:
       #   run: |
       #     pytest
       
-      - name: Run Docker container
-        run: |
-          docker run --detach schemacraft:latest
+      # - name: Run Docker container
+      #   run: |
+      #     docker run --detach schemacraft:latest
 
       # - name: Get container ID
       #   run: |
