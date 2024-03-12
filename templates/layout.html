@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHEMACRAFT</title>
+    <title>SCHEMACRAFT 🪄</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>SCHEMACRAFT</h1>
-            <button id="darkModeBtn">🌙</button>
+            <button id="darkModeBtn" title="Toggle Dark Mode">🌙</button>
         </header>
         <div class="input-container">
-            <textarea id="jsonInput" placeholder="Enter your JSON here..."></textarea>
+            <textarea id="jsonInput" placeholder="Paste your JSON data here..."></textarea>
+            <span id="errorMessage"></span>
         </div>
         <button id="convertBtn">Convert to JSON Schema</button>
         <div class="output-container">
             <pre id="schemaOutput"></pre>
+            <button id="copyBtn" class="copy-btn" title="Copy to Clipboard">Copy</button>
         </div>
     </div>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@latest/prism.min.js"></script>
 </body>
 </html>
+
