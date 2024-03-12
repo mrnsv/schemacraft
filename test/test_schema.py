@@ -63,4 +63,4 @@ def test_schema_generation_invalid_data():
         assert response.status_code == 400  # Assert bad request code
         assert "error" in json.loads(response.text)  # Check for error message
 
-# Additional test cases can be added here for different functionalities
+# Additional test cases can be added here for different functionalities.
