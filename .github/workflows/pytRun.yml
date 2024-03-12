@@ -28,7 +28,7 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             -H "Authorization: Bot ${{ vars.DISCORD_BOT_TOKEN }}" \
-          -d '{ "content": "Your message content here." }' \
+          -d '{ "content": "Workflow ${{ github.workflow }} completed! Build status: ${{ job.status }}" }' \
           ${{ vars.DISCORD_WEBHOOK_URL }}
 
       # - name: Notify Failure (if job fails)
