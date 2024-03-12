@@ -43,9 +43,12 @@ jobs:
         with:
           name: coverage-report
           path: coverage/
-      - name: Check test results  # Check test outcome and post comments
-        run: |
-          if [ ${{ success() }} == false ]; then
-            echo "Tests failed! ❌  Please fix failing tests before merging."
-            # ... (rest of comment posting logic)
-          fi
+      # - name: Check test results  # Check test outcome and post comments
+      #   run: |
+      #    if: ${{ success() }} == false ; then
+      #       echo "Tests failed! ❌  Please fix failing tests before merging."
+      #       # Add a comment to the pull request with details (replace with actual token)
+      #       curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+      #         -d "{\"body\": \"Tests failed on ${{ runner.os }} with Python ${{ matrix.python-version }}. Please check the workflow for details.\"}" \
+      #         "https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.number }}"
+      #     fi
