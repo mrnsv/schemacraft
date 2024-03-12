@@ -9,6 +9,8 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true 
 
     steps:
       - name: Checkout
@@ -23,13 +25,33 @@ jobs:
       #   run: |
       #     python -m pip install -r requirements.txt
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag schemacraft:latest
+      # - name: Build the Docker image
+      #   run: docker build . --file Dockerfile --tag schemacraft:latest
 
-      - name: Summon Schemacraft
+      # - name: Summon Schemacraft
+      #   run: |
+      #     docker run --detach schemacraft:latest
+
+      # - name: Run Pytest
+      #   run: |
+      #     pytest
+      - name: Run Docker container
         run: |
           docker run --detach schemacraft:latest
 
-      - name: Run Pytest
+      - name: Get container ID
         run: |
-          pytest
+          my-app-container-id=$(docker ps -q -f name=my-app-container)  # Adjust container name
+          echo "Container ID: $my-app-container-id"
+
+      - name: Wait for container to be ready
+        run: |
+          until docker ps -q | grep ${{ steps.get_container_id.outputs.my-app-container-id }}; do sleep 5; done
+        env:
+          my-app-container-id: ${{ steps.get_container_id.outputs.my-app-container-id }}
+
+      - name: Run Pytest inside container
+        uses: docker/ssh-action@v1
+        with:
+          img: schemacraft:latest
+          cmd: pytest
