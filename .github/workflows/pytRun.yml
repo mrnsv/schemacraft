@@ -25,13 +25,16 @@ jobs:
 
       - name: Notify Failure (if job fails)
         uses: actions/github-script@v6
-        if: failure()  # Only run if previous step fails
+        if: failure()
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.TOKEN }}
           script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Pytest tests failed in workflow! Please fix and push again before merging.'
-            })
+            try:
+              github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Pytest tests failed in workflow! Please fix and push again before merging.'
+              })
+            except (TypeError):
+              pass  # Silently handle the error
