@@ -23,6 +23,18 @@ jobs:
         run: |
           docker run --rm schemacraft:latest pytest
 
+      - name: Install actions-for-discord
+        uses: EnricoMi/actions-for-discord@v3
+        with:
+          token: ${{ secrets.DISCORD_BOT_TOKEN }}
+
+      - name: Send Discord Notification
+        uses: EnricoMi/actions-for-discord@v3
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        with:
+          message: "GitHub Workflow Message: "
+
       - name: Notify Failure (if job fails)
         uses: actions/github-script@v6
         if: failure()
