@@ -30,7 +30,7 @@ invalid_json_data = [
 def test_schema_generation_valid_data():
     """Tests generating JSON Schemas from various valid JSON data structures"""
 
-    url = "http://localhost:5000/"  # Replace with your application URL
+    url = "http://127.0.0.1:5000/"  # Replace with your application URL
     headers = {"Content-Type": "application/json"}
 
     for data in valid_json_data:
