@@ -2,12 +2,12 @@ name: Run Pytest on Push and Pull
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  tests:
+  build-and-test:
     runs-on: ubuntu-latest
     # strategy:
     #   fail-fast: true
@@ -37,7 +37,7 @@ jobs:
         with:
           github-token: ${{ vars.HUB_TOKEN }}
           script: |
-            try
+            try:
               github.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
@@ -46,3 +46,17 @@ jobs:
               })
             except (TypeError):
               pass  # Silently handle the error
+
+      - name: Add comment based on workflow status
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setOutput('message', ${{ success() ? 'All checks passed!' : 'Build or tests failed!' }});
+
+      - name: Create or update check run
+        uses: actions/create-or-update-check-run@v3
+        with:
+          name: My Workflow
+          conclusion: |
+            ${{ success() ? 'success' : 'failure' }}
+          output: ${{ steps.add-comment.outputs }}
