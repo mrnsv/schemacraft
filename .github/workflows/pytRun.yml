@@ -37,7 +37,7 @@ jobs:
         with:
           github-token: ${{ vars.HUB_TOKEN }}
           script: |
-            try:
+            try
               github.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
