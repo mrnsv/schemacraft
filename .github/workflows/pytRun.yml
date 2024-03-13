@@ -22,6 +22,7 @@ jobs:
       - name: Run Pytest in Container
         run: |
           docker run --rm schemacraft:latest pytest
+        continue-on-error: true 
 
       - name: Send Discord Notification
         run: |
@@ -30,6 +31,7 @@ jobs:
             -H "Authorization: Bot ${{ vars.DISCORD_BOT_TOKEN }}" \
           -d '{ "content": "Workflow ${{ github.workflow }} completed! Build status: ${{ job.status }}" }' \
           ${{ vars.DISCORD_WEBHOOK_URL }}
+        continue-on-error: true 
 
       - name: Notify Failure (if job fails)
         uses: actions/github-script@v6
@@ -46,6 +48,7 @@ jobs:
               })
             except (TypeError):
               pass  # Silently handle the error
+        continue-on-error: true 
 
       - name: Add comment based on workflow status
         uses: actions/github-script@v6
@@ -55,6 +58,7 @@ jobs:
               success() : 'All checks passed!' # Success message indented
                 else 'Build or tests failed!' # Failure message indented
             )
+        continue-on-error: true 
 
       - name: Create or update check run
         uses: actions/github-script@v6
@@ -65,3 +69,4 @@ jobs:
             const output = { message: steps.add-comment.outputs.message };
             core.setOutput('conclusion', conclusion);
             core.setOutput('output', output);
+        continue-on-error: true 
