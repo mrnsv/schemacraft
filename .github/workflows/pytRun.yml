@@ -55,16 +55,14 @@ jobs:
         with:
           script: |
             core.setOutput('message', 
-              success() : 'All checks passed!' # Success message indented
-                else 'Build or tests failed!' # Failure message indented
+              success() ? 'All checks passed!' : 'Build or tests failed!'
             )
         continue-on-error: true 
 
       - name: Create or update check run
         uses: actions/github-script@v6
         with:
-          script: |
-            # Script to create or update check run
+          script: |  # Script to create or update check run
             const conclusion = success() ? 'success' : 'failure';
             const output = { message: steps.add-comment.outputs.message };
             core.setOutput('conclusion', conclusion);
