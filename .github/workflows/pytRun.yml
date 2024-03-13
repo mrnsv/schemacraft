@@ -54,16 +54,15 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.setOutput('message', 
-              success() ? 'All checks passed!' : 'Build or tests failed!'
-            )
+            const conclusion = context.conclusion === 'success' ? 'success' : 'failure';
+            core.setOutput('message', conclusion);
         continue-on-error: true 
 
       - name: Create or update check run
         uses: actions/github-script@v6
         with:
           script: |  # Script to create or update check run
-            const conclusion = success() ? 'success' : 'failure';
+            const conclusion = context.conclusion === 'success' ? 'success' : 'failure';
             const output = { message: steps.add-comment.outputs.message };
             core.setOutput('conclusion', conclusion);
             core.setOutput('output', output);
