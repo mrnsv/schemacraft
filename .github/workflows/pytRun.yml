@@ -31,18 +31,18 @@ jobs:
           -d '{ "content": "Workflow ${{ github.workflow }} completed! Build status: ${{ job.status }}" }' \
           ${{ vars.DISCORD_WEBHOOK_URL }}
 
-      # - name: Notify Failure (if job fails)
-      #   uses: actions/github-script@v6
-      #   if: failure()
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     script: |
-      #       try:
-      #         github.issues.createComment({
-      #           issue_number: context.issue.number,
-      #           owner: context.repo.owner,
-      #           repo: context.repo.repo,
-      #           body: 'Pytest tests failed in workflow! Please fix and push again before merging.'
-      #         })
-      #       except (TypeError):
-      #         pass  # Silently handle the error
+      - name: Notify Failure (if job fails)
+        uses: actions/github-script@v6
+        if: failure()
+        with:
+          github-token: ${{ vars.HUB_TOKEN }}
+          script: |
+            try:
+              github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'Pytest tests failed in workflow! Please fix and push again before merging.'
+              })
+            except (TypeError):
+              pass  # Silently handle the error

@@ -30,19 +30,19 @@ invalid_json_data = [
 def test_schema_generation_valid_data():
     """Tests generating JSON Schemas from various valid JSON data structures"""
 
-    # url = "http://localhost:5000/"  # Replace with your application URL
-    # headers = {"Content-Type": "application/json"}
+    url = "http://localhost:5000/"  # Replace with your application URL
+    headers = {"Content-Type": "application/json"}
 
-    # for data in valid_json_data:
-    #     # Option 1: Using requests library (external API call)
-    #     response = post(url, json=data, headers=headers)
-    #     assert response.status_code == 200
-    #     response_data = json.loads(response.text)
+    for data in valid_json_data:
+        # Option 1: Using requests library (external API call)
+        response = post(url, json=data, headers=headers)
+        assert response.status_code == 200
+        response_data = json.loads(response.text)
 
-    #     # Basic assertions on the generated schema (you can add more)
-    #     assert "type" in response_data
-    #     assert response_data["type"] == ""
-    #     assert "properties" in response_data
+        # Basic assertions on the generated schema (you can add more)
+        assert "type" in response_data
+        assert response_data["type"] == ""
+        assert "properties" in response_data
 
         # Option 2: Using Flask-Client for integrated testing (if installed)
         # from flask_testing import Client
@@ -51,17 +51,17 @@ def test_schema_generation_valid_data():
         #     assert response.status_code == 200
         #     response_data = response.get_json()
         #     # Assertions on the generated schema
-    print("Test Bypassed")
+    # print("Test Bypassed")
 
 # def test_schema_generation_invalid_data():
-#     """Tests error handling for invalid JSON data"""
+    """Tests error handling for invalid JSON data"""
 
-#     url = "http://localhost:5000/"  # Replace with your application URL
-#     headers = {"Content-Type": "application/json"}
+    url = "http://localhost:5000/"  # Replace with your application URL
+    headers = {"Content-Type": "application/json"}
 
-#     for data in invalid_json_data:
-#         response = post(url, json=data, headers=headers)
-#         assert response.status_code == 400  # Assert bad request code
-#         assert "error" in json.loads(response.text)  # Check for error message
+    for data in invalid_json_data:
+        response = post(url, json=data, headers=headers)
+        assert response.status_code == 400  # Assert bad request code
+        assert "error" in json.loads(response.text)  # Check for error message
 
 # # Additional test cases can be added here for different functionalities
