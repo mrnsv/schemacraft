@@ -56,7 +56,7 @@ jobs:
           script: |
             const conclusion = context.conclusion === 'success' ? 'success' : 'failure';
             core.setOutput('message', conclusion);
-        continue-on-error: true 
+        # continue-on-error: true 
 
       - name: Create or update check run
         uses: actions/github-script@v6
@@ -66,4 +66,4 @@ jobs:
             const output = { message: steps.add-comment.outputs.message };
             core.setOutput('conclusion', conclusion);
             core.setOutput('output', output);
-        continue-on-error: true 
+        # continue-on-error: true 
