@@ -51,12 +51,17 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            core.setOutput('message', ${{ success() ? 'All checks passed!' : 'Build or tests failed!' }});
+            core.setOutput('message', 
+              success() : 'All checks passed!' # Success message indented
+                else 'Build or tests failed!' # Failure message indented
+            )
 
       - name: Create or update check run
-        uses: actions/create-or-update-check-run@v3
+        uses: actions/github-script@v6
         with:
-          name: My Workflow
-          conclusion: |
-            ${{ success() ? 'success' : 'failure' }}
-          output: ${{ steps.add-comment.outputs }}
+          script: |
+            # Script to create or update check run
+            const conclusion = success() ? 'success' : 'failure';
+            const output = { message: steps.add-comment.outputs.message };
+            core.setOutput('conclusion', conclusion);
+            core.setOutput('output', output);
