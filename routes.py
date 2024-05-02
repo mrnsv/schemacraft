@@ -22,7 +22,8 @@ def generate_schema(json_data, *, allow_empty_arrays=False):
     schema = {
         "type": "object",
         "properties": {},
-        "required": []
+        "required": [],
+        "additionalProperties": False,
     }
 
     for key, value in json_data.items():
@@ -31,23 +32,26 @@ def generate_schema(json_data, *, allow_empty_arrays=False):
                 schema["properties"][key] = generate_schema(value)
             elif isinstance(value, list):
                 if len(value) > 0:
-                    schema["properties"][key] = {"type": "array", "items": generate_schema(value[0])}
+                    schema["properties"][key] = {
+                        "type": "array",
+                        "items": generate_schema(value[0]),
+                    }
                 else:
                     if allow_empty_arrays:
                         schema["properties"][key] = {"type": "array", "items": None}
                     else:
                         schema["properties"][key] = {"type": "array"}
+            elif isinstance(value, bool):
+                schema["properties"][key] = {"type": "boolean"}
             elif isinstance(value, (int, float)):
                 schema["properties"][key] = {"type": "number"}
             elif isinstance(value, str):
                 schema["properties"][key] = {"type": "string"}
-            elif isinstance(value, bool):
-                schema["properties"][key] = {"type": "boolean"}
             elif value is None:
                 schema["properties"][key] = {"type": "null"}
             schema["required"].append(key)
         except (TypeError, ValueError) as e:
-            return {'error': f'Invalid JSON data for key "{key}": {str(e)}'}, 400
+            return {"error": f'Invalid JSON data for key "{key}": {str(e)}'}, 400
 
     return schema
 
